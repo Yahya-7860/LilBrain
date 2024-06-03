@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import Score from '../components/Score';
 
 export default function AlphaPage() {
     const [image, setImage] = useState('images/1.png');
@@ -75,7 +76,7 @@ export default function AlphaPage() {
         const handleAnimationFlow = () => {
             if (isVisible) {
                 // Start listening when the character is visible
-                startListening();
+                // startListening();
                 // Set a timer to show the reminder message if no speech input is detected
                 const reminderTimer = setTimeout(() => {
                     setReminder(true);
@@ -128,8 +129,8 @@ export default function AlphaPage() {
     }
 
     return (
-        <div>
-
+        <>
+            <Score />
             <div className='bg-gray-400 h-screen flex flex-col justify-center items-center'>
                 <motion.div
                     className='flex justify-center items-center'
@@ -141,7 +142,7 @@ export default function AlphaPage() {
                         if (isExiting) setIsVisible(false);
                     }}
                 >
-                    <img src={image} className='h-80' />
+                    <img src={image} className='h-96 mt-[-15rem]' />
                 </motion.div>
 
 
@@ -150,8 +151,11 @@ export default function AlphaPage() {
                 <p className='text-gray-500'>{transcript}</p>
 
             </div>
+        </>
 
-        </div>
+
+
+
 
     );
 }
