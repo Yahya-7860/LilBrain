@@ -4,6 +4,7 @@ import AlphaPage from './Pages/AlphaPage'
 import ChoicePage from './Pages/ChoicePage'
 import FinalAlphaPage from './Pages/FinalAlphaPage'
 import StartPage from './Pages/StartPage'
+import Endgame from './components/Endgame'
 import Score from './components/Score'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <AlphaPage />
       {/* <Score/> */}
       {/* <FinalAlphaPage /> */}
+      {/* <Endgame/> */}
     </>
   )
 }

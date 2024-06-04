@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import Score from '../components/Score';
+import Endgame from '../components/Endgame';
+import Pause from '../components/Pause';
 
 export default function AlphaPage() {
     const [image, setImage] = useState('images/1.png');
@@ -15,6 +17,7 @@ export default function AlphaPage() {
     const [reminder, setReminder] = useState(false);
     const [message, setMessage] = useState('');
     const [resettingTranscript, setResettingTranscript] = useState(false);
+    const [score, setscore] = useState(0)
 
     const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
@@ -53,6 +56,7 @@ export default function AlphaPage() {
         const timeoutId = setTimeout(() => {
             if (text.trim() !== '') {
                 if (text.toLowerCase().trim() === defaultText.toLowerCase() || text.toLowerCase().trim() === defaultText2.toLowerCase() || text.toLowerCase().trim() === defaultText3.toLowerCase()) {
+                    setscore(score + 1);
                     setMessage('Correct!');
                     setTimeout(() => {
                         setIsExiting(true);
@@ -69,7 +73,7 @@ export default function AlphaPage() {
         }, 2000); // 2000ms delay for debounce
 
         return () => clearTimeout(timeoutId); // Clear timeout if `text` changes before timeout completes
-    }, [text, defaultText, resetTranscript, defaultText2, defaultText3]);
+    }, [text, defaultText, resetTranscript, defaultText2, defaultText3, score]);
 
     //! Animation code
     useEffect(() => {
@@ -129,8 +133,15 @@ export default function AlphaPage() {
     }
 
     return (
-        <>
-            <Score />
+        <div className='bg-gray-400'>
+            <div className='flex justify-between items-center p-4 bg-transparent'>
+                <Score score={score} />
+                <div className='flex justify-between items-center bg-transparent gap-3'>
+                    <Endgame />
+                    {/* //! new added */}
+                    <Pause /> 
+                </div>
+            </div>
             <div className='bg-gray-400 h-screen flex flex-col justify-center items-center'>
                 <motion.div
                     className='flex justify-center items-center'
@@ -151,7 +162,7 @@ export default function AlphaPage() {
                 <p className='text-gray-500'>{transcript}</p>
 
             </div>
-        </>
+        </div>
 
 
 
