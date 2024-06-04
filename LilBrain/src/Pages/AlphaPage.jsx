@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import Score from '../components/Score';
 import Endgame from '../components/Endgame';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import New from '../components/new';
 
 export default function AlphaPage() {
     const [image, setImage] = useState('images/1.png');
@@ -17,6 +20,16 @@ export default function AlphaPage() {
     const [message, setMessage] = useState('');
     const [resettingTranscript, setResettingTranscript] = useState(false);
     const [score, setscore] = useState(0)
+
+
+    const Winaudio = new Audio('/Voice/1.mp3')
+    const Lossaudio = new Audio('/Voice/2.mp3')
+    // const audi = () => {
+
+    //     audio.play()
+    //     console.log('win')
+    // }
+
 
     const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
@@ -55,14 +68,18 @@ export default function AlphaPage() {
         const timeoutId = setTimeout(() => {
             if (text.trim() !== '') {
                 if (text.toLowerCase().trim() === defaultText.toLowerCase() || text.toLowerCase().trim() === defaultText2.toLowerCase() || text.toLowerCase().trim() === defaultText3.toLowerCase()) {
+                    Winaudio.play();
                     setscore(score + 1);
                     setMessage('Correct!');
+                    toast.success("Yayyyyyy....")
                     setTimeout(() => {
                         setIsExiting(true);
                         resetTranscript();
                     }, 1000); // Character leaves after 2 seconds on success
                 } else {
+                    Lossaudio.play();
                     setMessage('Try again!');
+                    toast.error("Oops! Wrong, Try Again")
                     startListening();
                     setResettingTranscript(true);
                     resetTranscript();
@@ -79,13 +96,13 @@ export default function AlphaPage() {
         const handleAnimationFlow = () => {
             if (isVisible) {
                 // Start listening when the character is visible
-                // startListening(); //!listening 
+                startListening();     //!listening 
                 // Set a timer to show the reminder message if no speech input is detected
-                const reminderTimer = setTimeout(() => {
-                    setReminder(true);
-                }, 5000);
+                // const reminderTimer = setTimeout(() => {
+                //     setReminder(true);
+                // }, 5000);
 
-                return () => clearTimeout(reminderTimer);
+                // return () => clearTimeout(reminderTimer);
             } else {
                 // Set a timer to get the next image and show it after the exit animation
                 const nextImageTimer = setTimeout(() => {
@@ -155,8 +172,14 @@ export default function AlphaPage() {
 
 
                 <p>{message}</p>
-                {reminder && !transcript && <p>Reminder: Please say the word!</p>}
+                {/* {reminder && !transcript && <p>Reminder: Please say the word!</p>} */}
                 <p className='text-gray-500'>{transcript}</p>
+                <ToastContainer position='bottom-center' autoClose={1500} />
+                {/* <div id='myCheck'>
+
+                </div> */}
+
+                {/* <New></New> */}
 
             </div>
         </div>

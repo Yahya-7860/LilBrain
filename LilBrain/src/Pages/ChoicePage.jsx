@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function ChoicePage() {
     return (
@@ -9,11 +10,11 @@ function ChoicePage() {
                 >
                     Play Colors
                 </button>
-                <button
+                <Link to={'/alphapage'}
                     className="text-3xl  bg-gradient-to-r from-purple-500 to-pink-400 active:from-pink-400 active:to-purple-500 text-white font-bold p-5 rounded-lg shadow-lg transform active:scale-105 transition duration-300 ease-in-out"
                 >
                     Play Alphabets
-                </button>
+                </Link>
             </div>
         </div>
     )
