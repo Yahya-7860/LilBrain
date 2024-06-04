@@ -6,17 +6,21 @@ import FinalAlphaPage from './Pages/FinalAlphaPage'
 import StartPage from './Pages/StartPage'
 import Endgame from './components/Endgame'
 import Score from './components/Score'
+import EndPage from './Pages/EndPage'
+
 
 function App() {
+
 
   return (
     <>
       {/* <StartPage /> */}
       {/* <ChoicePage/> */}
-      <AlphaPage />
+      {/* <AlphaPage /> */}
       {/* <Score/> */}
       {/* <FinalAlphaPage /> */}
       {/* <Endgame/> */}
+      <EndPage />
     </>
   )
 }

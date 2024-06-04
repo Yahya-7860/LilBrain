@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import Score from '../components/Score';
 import Endgame from '../components/Endgame';
-import Pause from '../components/Pause';
 
 export default function AlphaPage() {
     const [image, setImage] = useState('images/1.png');
@@ -73,14 +72,14 @@ export default function AlphaPage() {
         }, 2000); // 2000ms delay for debounce
 
         return () => clearTimeout(timeoutId); // Clear timeout if `text` changes before timeout completes
-    }, [text, defaultText, resetTranscript, defaultText2, defaultText3, score]);
+    }, [text, defaultText, resetTranscript, defaultText2, defaultText3]);
 
     //! Animation code
     useEffect(() => {
         const handleAnimationFlow = () => {
             if (isVisible) {
                 // Start listening when the character is visible
-                // startListening();
+                // startListening(); //!listening 
                 // Set a timer to show the reminder message if no speech input is detected
                 const reminderTimer = setTimeout(() => {
                     setReminder(true);
@@ -96,7 +95,7 @@ export default function AlphaPage() {
                     setText('');
                     setMessage('');
                     setReminder(false);
-                }, 500); // Adjust duration to match exit animation duration
+                }, 1000); // Adjust duration to match exit animation duration
 
                 return () => clearTimeout(nextImageTimer);
             }
@@ -138,8 +137,6 @@ export default function AlphaPage() {
                 <Score score={score} />
                 <div className='flex justify-between items-center bg-transparent gap-3'>
                     <Endgame />
-                    {/* //! new added */}
-                    <Pause /> 
                 </div>
             </div>
             <div className='bg-gray-400 h-screen flex flex-col justify-center items-center'>
