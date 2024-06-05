@@ -1,8 +1,9 @@
 import React from 'react';
 import { FaStar } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
-function EndPage({ score }) {
+function EndPage() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-10 rounded-lg shadow-lg h-96 w-96">
@@ -20,6 +21,7 @@ function EndPage({ score }) {
                             <FaStar className='text-yellow-400 text-4xl' />
                             <FaStar className='text-yellow-400 text-4xl' />
                         </div>
+                        <Link to={'/choicepage'} className='mt-8 p-2 rounded bg-red-600 font-bold text-white hover:bg-red-700 active:bg-red-800'>Back</Link>
 
                     </div>
                 </div>

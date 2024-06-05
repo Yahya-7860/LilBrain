@@ -5,6 +5,8 @@ import Score from '../components/Score';
 import Endgame from '../components/Endgame';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { addStar } from '../features/Score/Scoreslice';
 // import New from '../components/new';
 
 export default function AlphaPage() {
@@ -24,11 +26,8 @@ export default function AlphaPage() {
 
     const Winaudio = new Audio('/Voice/1.mp3')
     const Lossaudio = new Audio('/Voice/2.mp3')
-    // const audi = () => {
 
-    //     audio.play()
-    //     console.log('win')
-    // }
+    const dispatch = useDispatch()
 
 
     const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
@@ -68,6 +67,7 @@ export default function AlphaPage() {
         const timeoutId = setTimeout(() => {
             if (text.trim() !== '') {
                 if (text.toLowerCase().trim() === defaultText.toLowerCase() || text.toLowerCase().trim() === defaultText2.toLowerCase() || text.toLowerCase().trim() === defaultText3.toLowerCase()) {
+                    dispatch(addStar())
                     Winaudio.play();
                     setscore(score + 1);
                     setMessage('Correct!');
@@ -149,7 +149,7 @@ export default function AlphaPage() {
     }
 
     return (
-        <div className='bg-gray-400'>
+        <div className="bg-[url('/images/bg.jpg')] w-full h-screen bg-cover bg-center bg-no-repeat">
             <div className='flex justify-between items-center p-4 bg-transparent'>
                 <Score score={score} />
                 <div className='flex justify-between items-center bg-transparent gap-3'>

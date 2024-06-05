@@ -36,6 +36,12 @@ function App() {
             element={<AlphaPage />}
           >
           </Route>
+          <Route
+            exact
+            path="/scorepage"
+            element={<EndPage />}
+          >
+          </Route>
         </Routes>
       </BrowserRouter>
 
