@@ -2,11 +2,9 @@
 import './App.css'
 import AlphaPage from './Pages/AlphaPage'
 import ChoicePage from './Pages/ChoicePage'
-import FinalAlphaPage from './Pages/FinalAlphaPage'
 import StartPage from './Pages/StartPage'
-import Endgame from './components/Endgame'
-import Score from './components/Score'
 import EndPage from './Pages/EndPage'
+import ColorPage from './Pages/ColorPage'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -40,6 +38,12 @@ function App() {
             exact
             path="/scorepage"
             element={<EndPage />}
+          >
+          </Route>
+          <Route
+            exact
+            path="/colorpage"
+            element={<ColorPage />}
           >
           </Route>
         </Routes>

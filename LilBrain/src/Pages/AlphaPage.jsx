@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { addStar } from '../features/Score/Scoreslice';
-// import New from '../components/new';
 
 export default function AlphaPage() {
     const [image, setImage] = useState('images/1.png');
@@ -22,6 +21,7 @@ export default function AlphaPage() {
     const [message, setMessage] = useState('');
     const [resettingTranscript, setResettingTranscript] = useState(false);
     const [score, setscore] = useState(0)
+    const [wave, setwave] = useState(false)
 
 
     const Winaudio = new Audio('/Voice/1.mp3')
@@ -67,6 +67,7 @@ export default function AlphaPage() {
         const timeoutId = setTimeout(() => {
             if (text.trim() !== '') {
                 if (text.toLowerCase().trim() === defaultText.toLowerCase() || text.toLowerCase().trim() === defaultText2.toLowerCase() || text.toLowerCase().trim() === defaultText3.toLowerCase()) {
+
                     dispatch(addStar())
                     Winaudio.play();
                     setscore(score + 1);
@@ -75,7 +76,7 @@ export default function AlphaPage() {
                     setTimeout(() => {
                         setIsExiting(true);
                         resetTranscript();
-                    }, 1000); // Character leaves after 2 seconds on success
+                    }, 1000); // Character leaves after 1 seconds on success
                 } else {
                     Lossaudio.play();
                     setMessage('Try again!');
@@ -86,9 +87,11 @@ export default function AlphaPage() {
                     setResettingTranscript(false);
                 }
             }
-        }, 2000); // 2000ms delay for debounce
+            setwave(true)
+        }, 2000); // 2s delay for debounce
 
-        return () => clearTimeout(timeoutId); // Clear timeout if `text` changes before timeout completes
+
+        return () => clearTimeout(timeoutId);
     }, [text, defaultText, resetTranscript, defaultText2, defaultText3]);
 
     //! Animation code
@@ -97,22 +100,18 @@ export default function AlphaPage() {
             if (isVisible) {
                 // Start listening when the character is visible
                 startListening();     //!listening 
-                // Set a timer to show the reminder message if no speech input is detected
-                // const reminderTimer = setTimeout(() => {
-                //     setReminder(true);
-                // }, 5000);
 
-                // return () => clearTimeout(reminderTimer);
             } else {
-                // Set a timer to get the next image and show it after the exit animation
                 const nextImageTimer = setTimeout(() => {
+                    setwave(false)
+
                     getNext();
                     setIsExiting(false);
                     setIsVisible(true);
                     setText('');
                     setMessage('');
                     setReminder(false);
-                }, 1000); // Adjust duration to match exit animation duration
+                }, 1000);
 
                 return () => clearTimeout(nextImageTimer);
             }
@@ -156,10 +155,10 @@ export default function AlphaPage() {
                     <Endgame />
                 </div>
             </div>
-            <div className='bg-gray-400 h-screen flex flex-col justify-center items-center'>
+            <div className='h-screen flex flex-col justify-center items-center'>
                 <motion.div
                     className='flex justify-center items-center'
-                    key={image} // Add a key to force re-render on image change
+                    key={image}
                     variants={characterVariants}
                     initial="hidden"
                     animate={isExiting ? 'exit' : 'visible'}
@@ -170,16 +169,15 @@ export default function AlphaPage() {
                     <img src={image} className='h-96 mt-[-15rem]' />
                 </motion.div>
 
+                <div>
+                    {wave && <img className='h-28 mt-[-2.5rem]' src="/images/A.gif" />}
+                </div>
 
-                <p>{message}</p>
-                {/* {reminder && !transcript && <p>Reminder: Please say the word!</p>} */}
-                <p className='text-gray-500'>{transcript}</p>
+                <p className='text-sky-300'>{message}</p>
+
+                <p className='text-sky-400'>{transcript}</p>
                 <ToastContainer position='bottom-center' autoClose={1500} />
-                {/* <div id='myCheck'>
 
-                </div> */}
-
-                {/* <New></New> */}
 
             </div>
         </div>
