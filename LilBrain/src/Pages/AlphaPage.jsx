@@ -166,7 +166,7 @@ export default function AlphaPage() {
                         if (isExiting) setIsVisible(false);
                     }}
                 >
-                    <img src={image} className='h-96 mt-[-15rem]' />
+                    <img src={image} className='sm:h-96 h-72 sm:mt-[-15rem] mt-[-10rem] ' />
                 </motion.div>
 
                 <div>
@@ -176,6 +176,7 @@ export default function AlphaPage() {
                 <p className='text-sky-300'>{message}</p>
 
                 <p className='text-sky-400'>{transcript}</p>
+                <p className='text-gray-400'>Say like : A for Apple</p>
                 <ToastContainer position='bottom-center' autoClose={1500} />
 
 

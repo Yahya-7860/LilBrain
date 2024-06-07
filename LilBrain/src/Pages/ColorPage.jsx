@@ -119,7 +119,7 @@ export default function AlphaPage() {
                     setText('');
                     setMessage('');
                     setReminder(false);
-                }, 1000); 
+                }, 1000);
 
                 return () => clearTimeout(nextImageTimer);
             }
@@ -166,7 +166,7 @@ export default function AlphaPage() {
             <div className='h-screen flex flex-col justify-center items-center'>
                 <motion.div
                     className='flex justify-center items-center'
-                    key={image} 
+                    key={image}
                     variants={characterVariants}
                     initial="hidden"
                     animate={isExiting ? 'exit' : 'visible'}
@@ -174,7 +174,7 @@ export default function AlphaPage() {
                         if (isExiting) setIsVisible(false);
                     }}
                 >
-                    <img src={image} className='h-[30rem] mt-[-15rem]' />
+                    <img src={image} className='sm:h-[30rem] h-[17rem] mt-[-15rem]' />
                 </motion.div>
 
                 <div>
@@ -183,8 +183,9 @@ export default function AlphaPage() {
 
                 <p className='text-sky-300'>{message}</p>
                 <p className='text-sky-200'>{transcript}</p>
+                <p className='text-gray-300'>What's the color of object ? Say....</p>
                 <ToastContainer position='bottom-center' autoClose={1500} />
-               
+
 
             </div>
         </div>
